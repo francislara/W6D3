@@ -6,7 +6,7 @@ const APIUtil = {
       dataType: 'json'
     });
   },
-  
+
   unfollowUser: id => {
     return $.ajax({
       url: `/users/${id}/follow`,
@@ -14,13 +14,22 @@ const APIUtil = {
       dataType: 'json'
     });
   },
-  
+
   searchUsers: (queryVal) => {
     return $.ajax({
       url: '/users/search',
       method: 'GET',
       dataType: 'json',
       data: {query: queryVal}
+    });
+  },
+
+  createTweet: (data) => {
+    return $.ajax({
+      url: '/tweets',
+      method: 'POST',
+      dataType: 'json',
+      data: data
     });
   }
 };

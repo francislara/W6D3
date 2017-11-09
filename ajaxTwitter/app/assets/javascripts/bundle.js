@@ -126,7 +126,7 @@ const APIUtil = {
       dataType: 'json'
     });
   },
-  
+
   unfollowUser: id => {
     return $.ajax({
       url: `/users/${id}/follow`,
@@ -134,7 +134,7 @@ const APIUtil = {
       dataType: 'json'
     });
   },
-  
+
   searchUsers: (queryVal) => {
     return $.ajax({
       url: '/users/search',
@@ -142,10 +142,20 @@ const APIUtil = {
       dataType: 'json',
       data: {query: queryVal}
     });
+  },
+
+  createTweet: (data) => {
+    return $.ajax({
+      url: '/tweets',
+      method: 'POST',
+      dataType: 'json',
+      data: data
+    });
   }
 };
 
 module.exports = APIUtil;
+
 
 /***/ }),
 /* 2 */
@@ -153,16 +163,22 @@ module.exports = APIUtil;
 
 const FollowToggle = __webpack_require__(0);
 const UsersSearch = __webpack_require__(3);
+const TweetCompose = __webpack_require__(4)
 
 $(() => {
   $('button.follow-toggle').each((i, button) => {
     new FollowToggle(button);
   });
-  
+
   $('nav.users-search').each((i, nav) => {
     new UsersSearch(nav);
   });
+
+  $('form.tweet-compose').each((i, tweet) => {
+    new TweetCompose(tweet);
+  });
 });
+
 
 /***/ }),
 /* 3 */
@@ -208,6 +224,48 @@ class UsersSearch {
 }
 
 module.exports = UsersSearch;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(1);
+
+class TweetCompose {
+  constructor(el) {
+    this.$el = $(el);
+    this.$el.on('submit', (e) => {
+      e.preventDefault();
+      this.submit();
+    });
+  }
+
+  submit() {
+    let data = this.$el.serializeJSON();
+    this.$el.find(":input").each( (i, input) => {
+
+      $(input).prop("disabled", true);
+    });
+    APIUtil.createTweet(data)
+      .then(this.handleSuccess.bind(this));
+  }
+
+  clearInput() {
+    this.$el.find(":input").each( (i, input) => {
+      $(input).prop("disabled", false);
+      $(input).val('');
+    });
+  }
+
+  handleSuccess(resp) {
+    this.clearInput();
+    let stringify = JSON.stringify(resp);
+    $(this.$el.data("tweets-ul")).append(`<li>${stringify}</li>`);
+  }
+}
+
+module.exports = TweetCompose;
 
 
 /***/ })
