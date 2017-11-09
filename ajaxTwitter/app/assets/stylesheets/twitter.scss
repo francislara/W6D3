@@ -1,0 +1,71 @@
+body {
+  font-family: sans-serif;
+  padding: 40px;
+  background-color: #1DA1F2;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+header {
+  li {
+    list-style: none;
+  }
+}
+
+.title {
+  color: white;
+  font-size: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 70px;
+  height: 60px;
+  background-image: url(http://me15a3s.leedsnewmedia.net/portfolioimages/twitter.png);
+  background-size: 170px;
+  background-position: 120px;
+}
+
+button, .button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: lightblue;
+  border: 1px solid darkblue;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darkblue;
+    border: 1px solid lightblue;
+    color: white;
+  }
+}
+
+.users-search {
+  ul {
+    max-width: 500px;
+  }
+
+  li {
+    list-style: none;
+    min-width: 500px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.tweets {
+  li {
+    border: 1px solid white;
+    border-radius: 5px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #b3d4fc;
+  }
+}
